@@ -8,15 +8,12 @@ public class Rope {
 
     public Rope(String str) {
         root = new Node();
-        createNewRope(root, str, 0, str.length());
+        createNewRope(root, str);
 
 
     }
 
-    void createNewRope(Node node, String input, int lIndex, int rIndex) {
-//        if(node==null)
-//            node = new Node();
-//        p.parent = parent_current;
+    void createNewRope(Node node, String input) {
 
         int leftLen = (int) Math.ceil(input.split(" ").length / 2.0);
         int rightLen = input.split(" ").length - leftLen;
@@ -31,15 +28,13 @@ public class Rope {
             if(node.left==null){
                 node.left = new Node();
             }
-            createNewRope(node.left, input.substring(0, x.get(leftLen - 1) + 1), lIndex, x.get(leftLen - 1) + 1);
+            createNewRope(node.left, input.substring(0, x.get(leftLen - 1) + 1));
 
             if(node.right==null){
                 node.right = new Node();
             }
-            createNewRope(node.right, input.substring(x.get(leftLen - 1) + 1, input.length()), x.get(leftLen - 1) + 1, rIndex);
+            createNewRope(node.right, input.substring(x.get(leftLen - 1) + 1, input.length()));
         }
-
-        //printstring(root);
 
     }
 
@@ -52,17 +47,6 @@ public class Rope {
         }
         return true;
     }
-
-//    void printstring(Node root)
-//    {
-//        if (root==null)
-//            return;
-//        if (root.left==null && root.right==null)
-//            System.out.println(root.str);
-//        printstring(root.left);
-//        printstring(root.right);
-//    }
-
 
     /*
     This method count the number of space in String and store its position in ArrayList
