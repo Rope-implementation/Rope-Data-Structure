@@ -19,8 +19,9 @@ public class Rope {
         int rightLen = input.split(" ").length - leftLen;
         ArrayList<Integer> x = spaceCharAt(input);
 
-        if (input.endsWith(" ")) {        //exception: do not have space in the end of first input
+        if (x.size()==0 || x.size()==1) {        //exception: do not have space in the end of first input
 //            node = p;
+            node.weight +=  input.length();
             node.str = input;
         } else {
 //            node = p;
@@ -37,19 +38,29 @@ public class Rope {
             createNewRope(node.right, input.substring(x.get(leftLen - 1) + 1, rIndex), x.get(leftLen - 1) + 1, rIndex);
         }
 
-        printstring(root);
+        //printstring(root);
 
     }
 
-    void printstring(Node root)
-    {
-        if (root==null)
-            return;
-        if (root.left==null && root.right==null)
-            System.out.println(root.str);
-        printstring(root.left);
-        printstring(root.right);
+    private boolean singleword(String input, ArrayList<Integer> spaceLoc) {
+        char[] x = input.toCharArray();
+        for(int i : spaceLoc){
+            if(x[i+1]==' '){
+
+            }
+        }
+        return false;
     }
+
+//    void printstring(Node root)
+//    {
+//        if (root==null)
+//            return;
+//        if (root.left==null && root.right==null)
+//            System.out.println(root.str);
+//        printstring(root.left);
+//        printstring(root.right);
+//    }
 
 
     ArrayList<Integer> spaceCharAt(String str) {
