@@ -13,6 +13,7 @@ public class Rope {
 
     }
     /*
+     dsahkj
        create new Rope
      */
     void createNewRope(Node node, String input) {
