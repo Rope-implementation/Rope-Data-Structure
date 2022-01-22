@@ -41,7 +41,7 @@ public class Rope {
     }
 
     /*
-        check if input is single word
+        check if input is single word or not
      */
     private boolean singleWord(String input, ArrayList<Integer> spacePos) {
         for(int i : spacePos){
