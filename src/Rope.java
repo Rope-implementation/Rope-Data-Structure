@@ -9,12 +9,10 @@ public class Rope {
     public Rope(String str) {
         root = new Node();
         createNewRope(root, str);
-
-
     }
+
     /*
-     dsahkj
-       create new Rope
+      create new Rope
      */
     void createNewRope(Node node, String input) {
 
@@ -39,6 +37,25 @@ public class Rope {
             createNewRope(node.right, input.substring(x.get(leftLen - 1) + 1, input.length()));
         }
 
+    }
+
+    public static void status(ArrayList<Rope> ropes){
+        for (Rope r: ropes){
+            travers(r.root);
+            System.out.println();
+        }
+    }
+
+    private static void travers(Node n){
+        if(n==null)
+            return;
+        if(n!=null){
+            travers(n.left);
+            travers(n.right);
+
+            if(n.str!=null)
+                System.out.print(n.str);
+        }
     }
 
     /*
@@ -70,7 +87,7 @@ public class Rope {
 }
 
 class Node {
-    Node left, right, parent;
+    Node left, right;
     String str;
     int weight=0;
 
