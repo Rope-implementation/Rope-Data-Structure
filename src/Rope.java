@@ -12,7 +12,7 @@ public class Rope {
 
 
     }
-
+//..
     void createNewRope(Node node, String input) {
 
         int leftLen = (int) Math.ceil(input.split(" ").length / 2.0);
