@@ -40,7 +40,9 @@ public class Rope {
     }
 
     public static void status(ArrayList<Rope> ropes){
+        int count=0;
         for (Rope r: ropes){
+            System.out.print(++count + ". " );
             travers(r.root);
             System.out.println();
         }
