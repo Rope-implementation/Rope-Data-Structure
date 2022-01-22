@@ -13,7 +13,7 @@ public class Rope {
 
     }
     /*
-    create a new Rope by "new"
+       create new Rope
      */
     void createNewRope(Node node, String input) {
 
@@ -40,6 +40,9 @@ public class Rope {
 
     }
 
+    /*
+        check if input is single word or not
+     */
     private boolean singleWord(String input, ArrayList<Integer> spacePos) {
         for(int i : spacePos){
             String[] tmp = input.split(" ",2);
