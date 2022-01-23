@@ -20,18 +20,18 @@ public class Rope {
         int rightLen = input.split(" ").length - leftLen;
         ArrayList<Integer> x = spaceCharAt(input);
 
-        if (singleWord(input,x)) {
-            node.weight +=  input.length();
+        if (singleWord(input, x)) {
+            node.weight += input.length();
             node.str = input;
         } else {
-            node.weight +=  input.substring(0, x.get(leftLen - 1) + 1).length();
+            node.weight += input.substring(0, x.get(leftLen - 1) + 1).length();
 
-            if(node.left==null){
+            if (node.left == null) {
                 node.left = new Node();
             }
             createNewRope(node.left, input.substring(0, x.get(leftLen - 1) + 1));
 
-            if(node.right==null){
+            if (node.right == null) {
                 node.right = new Node();
             }
             createNewRope(node.right, input.substring(x.get(leftLen - 1) + 1, input.length()));
@@ -39,23 +39,40 @@ public class Rope {
 
     }
 
-    public static void status(ArrayList<Rope> ropes){
-        int count=0;
-        for (Rope r: ropes){
-            System.out.print(++count + ". " );
+    public static void status(ArrayList<Rope> ropes) {
+        int count = 0;
+        for (Rope r : ropes) {
+            System.out.print(++count + ". ");
             travers(r.root);
             System.out.println();
         }
     }
 
-    private static void travers(Node n){
-        if(n==null)
+    /*
+    print the wanted index from appropriate rope
+     */
+    public static void printIndex(int num, int index, ArrayList<Rope> rr) {
+        Node p = rr.get(num).root;
+
+        while (p.left != null && p.right != null) {
+            if (p.weight > index) {
+                p = p.left;
+            } else {                                        //if p.weight <= index
+                index -= p.weight;
+                p = p.right;
+            }
+        }
+        System.out.println(p.str.charAt(index));
+    }
+
+    private static void travers(Node n) {
+        if (n == null)
             return;
-        if(n!=null){
+        if (n != null) {
             travers(n.left);
             travers(n.right);
 
-            if(n.str!=null)
+            if (n.str != null)
                 System.out.print(n.str);
         }
     }
@@ -64,9 +81,9 @@ public class Rope {
         check if input is single word or not
      */
     private boolean singleWord(String input, ArrayList<Integer> spacePos) {
-        for(int i : spacePos){
-            String[] tmp = input.split(" ",2);
-            if(Pattern.compile("[a-zA-Z]+").matcher(tmp[1]).find()){
+        for (int i : spacePos) {
+            String[] tmp = input.split(" ", 2);
+            if (Pattern.compile("[a-zA-Z]+").matcher(tmp[1]).find()) {
                 return false;
             }
         }
@@ -91,7 +108,7 @@ public class Rope {
 class Node {
     Node left, right;
     String str;
-    int weight=0;
+    int weight = 0;
 
     public Node() {
     }
