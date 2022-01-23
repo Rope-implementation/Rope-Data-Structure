@@ -1,9 +1,8 @@
-import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class Rope {
-    private static final int MAX_LEAF_LEN = 6;
+    //private static final int MAX_LEAF_LEN = 6;
     Node root;
 
     public Rope(String str) {
@@ -94,7 +93,6 @@ public class Rope {
     This method count the number of space in String and store its position in ArrayList
      */
     ArrayList<Integer> spaceCharAt(String str) {
-        int j = 0;
         ArrayList<Integer> x = new ArrayList<>();
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == ' ')

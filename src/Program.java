@@ -1,15 +1,24 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
-        Rope r = new Rope("i am ali");
-        Rope r1 = new Rope("i am rope DS");
-        Rope r2 = new Rope("here is a test");
-        ArrayList<Rope> rr = new ArrayList<>();
-        rr.add(r);
-        rr.add(r1);
-        rr.add(r2);
-        Rope.status(rr);
-        Rope.printIndex(2, 2, rr);
+        ArrayList<Rope> ropes = new ArrayList<>();
+        Rope r;
+        while (true) {
+            Scanner sc = new Scanner(System.in);
+            String input = sc.nextLine();
+            String[] inp = input.split(" ", 2);
+            if (inp[0].equals("new")) {
+                r = new Rope(inp[1]);
+                ropes.add(r);
+            }
+            if (inp[0].equals("status")) {
+                Rope.status(ropes);
+            }
+            if (inp[0].equals("index")) {
+                Rope.printIndex(Integer.parseInt(String.valueOf(inp[1].charAt(0))) - 1, Integer.parseInt(String.valueOf(inp[1].charAt(2))), ropes);
+            }
+        }
     }
 }
