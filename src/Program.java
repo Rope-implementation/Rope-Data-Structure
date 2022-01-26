@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Program {
+    static ArrayList<Rope> ropes = new ArrayList<>();
     public static void main(String[] args) {
-        ArrayList<Rope> ropes = new ArrayList<>();
         Rope r;
         while (true) {
             Scanner sc = new Scanner(System.in);
@@ -22,6 +22,9 @@ public class Program {
             }
             if (inp[0].equals("concat")) {
                 Rope.concat(Integer.parseInt(String.valueOf(inp[1].charAt(0))) - 1, Integer.parseInt(String.valueOf(inp[1].charAt(2))) - 1, ropes);
+            }
+            if(inp[0].equals("split")){
+                Rope.split(Integer.parseInt(String.valueOf(inp[1].charAt(0))) - 1 , Integer.parseInt(String.valueOf(inp[1].charAt(2))), ropes);
             }
         }
     }

@@ -84,6 +84,35 @@ public class Rope {
     }
 
 
+    public static void split(int num , int index , ArrayList<Rope> rr){
+        Node p = rr.get(num).root;
+        Node q=p;
+        int newIndex=index;
+        while (q.left != null && q.right!=null){
+            if(newIndex < q.weight){
+                q=q.left;
+            }
+            else{
+                newIndex -= q.weight;
+                q = q.right;
+            }
+        }
+        Node newLeft=new Node(q.str.substring(0, newIndex+1));
+        Node newRight = new Node(q.str.substring(index+1));
+        q.str=null;
+        q.left=newLeft;
+        q.right=newRight;
+        q.weight= newLeft.weight;
+        System.out.println(newRight.str);
+
+
+//        String rightBegin=travers(p).substring(index+1);
+//        Program.ropes.add(new Rope(rightBegin));
+        //System.out.println(new Rope(rightBegin+1).root.str);
+//        while(index>p)
+//        new Rope("");
+    }
+
     private static void travers(Node n) {
         if (n == null)
             return;
@@ -94,6 +123,7 @@ public class Rope {
             if (n.str != null)
                 System.out.print(n.str);
         }
+        return;
     }
 
     /*
@@ -123,17 +153,3 @@ public class Rope {
 
 }
 
-class Node {
-    Node left, right;
-    String str;
-    int weight = 0;
-
-    public Node() {
-    }
-
-    public Node(String str) {
-        this.str = str;
-        weight = str.length();
-    }
-
-}
