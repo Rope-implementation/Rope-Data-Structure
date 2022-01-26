@@ -10,6 +10,11 @@ public class Rope {
         createNewRope(root, str);
     }
 
+    public Rope() {
+        root = new Node();
+    }
+
+
     /*
       create new Rope
      */
@@ -63,6 +68,18 @@ public class Rope {
         }
         System.out.println(p.str.charAt(index));
     }
+
+    public static void concat(int numberRope1, int numberRope2, ArrayList<Rope> rr) {
+        Rope r1 = rr.get(numberRope1);
+        Rope r2 = rr.get(numberRope2);
+        Rope r3 = new Rope();
+        r3.root.left = r1.root;
+        r3.root.right = r2.root;
+        r3.root.weight = r1.root.weight;
+        rr.remove(r2);
+        rr.set(numberRope1, r3);
+    }
+
 
     private static void travers(Node n) {
         if (n == null)
