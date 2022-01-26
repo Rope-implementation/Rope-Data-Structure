@@ -69,6 +69,9 @@ public class Rope {
         System.out.println(p.str.charAt(index));
     }
 
+    /*
+    concat rope1 and rope 2 and set the result in new Rope
+     */
     public static void concat(int numberRope1, int numberRope2, ArrayList<Rope> rr) {
         Rope r1 = rr.get(numberRope1);
         Rope r2 = rr.get(numberRope2);
