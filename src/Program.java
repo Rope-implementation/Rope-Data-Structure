@@ -8,9 +8,9 @@ public class Program {
         while (true) {
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
-            String[] inp = input.split(" ", 2);
+            String[] inp = input.split(" ");
             if (inp[0].equals("new")) {
-                String str = inp[1];
+                String str = input.split(" " , 2)[1];
                 r = new Rope(str.substring(1, str.length() - 1));
                 ropes.add(r);
             }
@@ -18,13 +18,13 @@ public class Program {
                 Rope.status(ropes);
             }
             if (inp[0].equals("index")) {
-                Rope.printIndex(Integer.parseInt(String.valueOf(inp[1].charAt(0))) - 1, Integer.parseInt(String.valueOf(inp[1].charAt(2))), ropes);
+                Rope.printIndex(Integer.parseInt(inp[1]) - 1, Integer.parseInt(inp[2]), ropes);
             }
             if (inp[0].equals("concat")) {
-                Rope.concat(Integer.parseInt(String.valueOf(inp[1].charAt(0))) - 1, Integer.parseInt(String.valueOf(inp[1].charAt(2))) - 1, ropes);
+                Rope.concat(Integer.parseInt(inp[1]) - 1, Integer.parseInt(inp[2]) - 1, ropes);
             }
             if(inp[0].equals("split")){
-                Rope.split(Integer.parseInt(String.valueOf(inp[1].charAt(0))) - 1 , Integer.parseInt(String.valueOf(inp[1].charAt(2))), ropes);
+                Rope.split(Integer.parseInt(inp[1]) - 1 , Integer.parseInt(inp[2]), ropes);
             }
         }
     }
