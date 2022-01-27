@@ -4,8 +4,7 @@ import java.util.regex.Pattern;
 public class Rope {
 
     Node root;
-    static String s2 = "";
-
+    static String s2 ="";
     public Rope(String str) {
         root = new Node();
         createNewRope(root, str);
@@ -84,89 +83,155 @@ public class Rope {
         rr.set(numberRope1, r3);
     }
 
-    /*
-    split a rope into two ropes
-     */
+
     public static void split(int num, int index, ArrayList<Rope> rr) {
         Node p = rr.get(num).root;
         Node q = p;
         String rightResult = "";
         String leftResult = "";
-        int count = 0, count1 = 0, count2 = 0;
+        int count = 0 ,count1=0;
         int newIndex = index;
         while (q.left != null && q.right != null) {
             if (newIndex < q.weight) {
 
-                if (index >= p.weight) {
+//                if(newIndex >= q.weight){
+//                    leftResult = newTravers(q.left);
+//                    s2="";
+//                }
+                if(index >= p.weight){
                     rightResult = newTravers(q.right);
-                    s2 = "";
+                    s2="";
                 }
-                q = q.left;
-                if (newIndex < q.weight && index < p.weight && q.left != null && q.right != null) {
-                    if (count1 == 0) {
+                q=q.left;
+                if(newIndex < q.weight && index < p.weight &&q.left!=null && q.right!=null){
+                    if(count1==0){
                         rightResult = newTravers(q.right);
-                        s2 = "";
-                    } else {
-                        rightResult = newTravers(q.right) + rightResult;
-                        s2 = "";
+                        s2="";
                     }
+                    else{
+                        rightResult = newTravers(q.right) + rightResult;
+                        s2="";
+                    }
+
                     count1++;
                 }
 
                 if (count == 0) {
                     rightResult += newTravers(p.right);
-                    s2 = "";
+                    s2="";
                     count++;
                 }
-            } else {
+            }
+            else {
                 newIndex -= q.weight;
 
-                if (newIndex < q.weight && index >= p.weight) {
+
+                if(newIndex < q.weight && index < p.weight){
                     leftResult += newTravers(q.left);
-                    s2 = "";
+                    s2="";
                 }
                 q = q.right;
 
                 if (count == 0) {
                     leftResult = newTravers(p.left);
-                    s2 = "";
+                    s2="";
                     count++;
                 }
-                if (newIndex < q.weight && index < p.weight && q.left != null && q.right != null) {
-                    if (count2 == 0) {
-                        leftResult += newTravers(q.left);
-                        s2 = "";
-                    } else {
-                        leftResult = leftResult + newTravers(q.left);
-                        s2 = "";
-                    }
-                    count2++;
+                if(newIndex < q.weight && index >= p.weight &&q.left!=null && q.right!=null){
+                    leftResult += newTravers(q.left);
+                    s2="";
                 }
-                if (newIndex >= q.weight) {
+                if(newIndex >= q.weight){
                     rightResult += newTravers(q.right);
-                    s2 = "";
+                    s2="";
                 }
+
+            }
+        }
+        Node newLeft = new Node(q.str.substring(0, newIndex + 1));
+        Node newRight = new Node(q.str.substring(newIndex + 1));
+        q.str = null;
+        q.left = newLeft;
+        q.right = newRight;
+        q.weight = newLeft.weight;
+        String result = null;
+        boolean check = true;
+
+        if (rightResult != null && check) {
+            result = newRight.str + rightResult;
+            check = false;
+
+        }
+        if (leftResult != null && check) {
+            result = leftResult + newLeft.str;
+        }
+        System.out.println(result);
+
+//        if(index >= p.weight){
+//            travers(p.right);
+//        }
+//        else{
+//                travers(p.right);
+//        }
+
+
+//        String rightBegin=travers(p).substring(index+1);
+//        Program.ropes.add(new Rope(rightBegin));
+        //System.out.println(new Rope(rightBegin+1).root.str);
+    }
+
+    /*
+    insert rope 2 value to rope 1, after index
+     */
+    public static void insert(int numRope1, int index, int numRope2, ArrayList<Rope> rr) {
+        s2 = "";
+        Node r1 = rr.get(numRope1).root;
+        Node r2 = rr.get(numRope2).root;
+
+        while (r1.left != null && r1.right != null) {
+            if (r1.weight > index) {
+                r1 = r1.left;
+            } else {                                        //if p.weight <= index
+                index -= r1.weight;
+                r1 = r1.right;
             }
         }
 
-        Node newLeft = new Node(q.str.substring(0, newIndex + 1));
-        Node newRight = new Node(q.str.substring(newIndex + 1));
-//        q.str = null;
-//        q.left = newLeft;
-//        q.right = newRight;
-//        q.weight = newLeft.weight;
-        String result1;
-        String result2;
+        Node p = new Node(r1.str.substring(0, index + 1));
+        Node q = new Node(r1.str.substring(index + 1));
+        q.str = newTravers(r2) + q.str;
+        q.weight = q.str.length();
+        r1.str = null;
+        r1.left = p;
+        r1.right = q;
+        reWeight(rr.get(numRope1));
 
-        Program.ropes.remove(num);
-        if (leftResult != null) {
-            result2 = leftResult + newLeft.str;
-            Program.ropes.add(num, new Rope(result2));
+    }
+
+    /*
+    re-weight each node when its necessary
+     */
+    private static int x;
+    private static void reWeight(Rope r) {
+        x=0;
+        reWeight(r.root);
+    }
+
+    private static void reWeight(Node p) {
+        if(p==null){
+            return ;
         }
-        if (rightResult != null) {
-            result1 = newRight.str + rightResult;
-            Program.ropes.add(num + 1, new Rope(result1));
+        reWeight(p.left);
+        if(p.left!=null) {
+            p.weight = p.left.weight + x;
+            x=0;
         }
+
+        reWeight(p.right);
+        if(p.right!=null)
+            x+= p.right.weight;
+
+//        return p.weight;
     }
 
     public static String newTravers(Node root) {
@@ -174,7 +239,7 @@ public class Rope {
             s2 = newTravers(root.left);
             s2 = newTravers(root.right);
 
-            if (root.str != null) {
+            if(root.str!= null){
                 s2 += root.str;
 
             }
