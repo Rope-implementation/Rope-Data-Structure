@@ -46,10 +46,14 @@ public class Rope {
 
     public static void status(ArrayList<Rope> ropes) {
         int count = 0;
-        for (Rope r : ropes) {
-            System.out.print(++count + ". ");
-            travers(r.root);
-            System.out.println();
+        if (ropes.size() == 0) {
+            System.out.println("There isn't any rope");
+        } else {
+            for (Rope r : ropes) {
+                System.out.print(++count + ". ");
+                travers(r.root);
+                System.out.println();
+            }
         }
     }
 
@@ -194,31 +198,46 @@ public class Rope {
         r1.left = p;
         r1.right = q;
         reWeight(rr.get(numRope1));
+    }
 
+    /*
+    delete a part of a node
+     */
+    public static void delete(int num, int beginning, int end, ArrayList<Rope> rr) {
+        Node p = rr.get(num).root;
+        if (beginning + 1 == 0 && end == newTravers(p).length()) {
+            rr.remove(num);
+        } else {
+            split(num, beginning, rr);
+            split(num + 1, end - beginning - 2, rr);
+            rr.remove(num + 1);
+            concat(num, num + 1, rr);
+        }
     }
 
     /*
     re-weight each node when its necessary
      */
     private static int x;
+
     private static void reWeight(Rope r) {
-        x=0;
+        x = 0;
         reWeight(r.root);
     }
 
     private static void reWeight(Node p) {
-        if(p==null){
-            return ;
+        if (p == null) {
+            return;
         }
         reWeight(p.left);
-        if(p.left!=null) {
+        if (p.left != null) {
             p.weight = p.left.weight + x;
-            x=0;
+            x = 0;
         }
 
         reWeight(p.right);
-        if(p.right!=null)
-            x+= p.right.weight;
+        if (p.right != null)
+            x += p.right.weight;
 
 //        return p.weight;
     }

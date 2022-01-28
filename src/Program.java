@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Program {
     static ArrayList<Rope> ropes = new ArrayList<>();
+
     public static void main(String[] args) {
         Rope r;
         while (true) {
@@ -10,7 +11,7 @@ public class Program {
             String input = sc.nextLine();
             String[] inp = input.split(" ");
             if (inp[0].equals("new")) {
-                String str = input.split(" " , 2)[1];
+                String str = input.split(" ", 2)[1];
                 r = new Rope(str.substring(1, str.length() - 1));
                 ropes.add(r);
             }
@@ -23,11 +24,14 @@ public class Program {
             if (inp[0].equals("concat")) {
                 Rope.concat(Integer.parseInt(inp[1]) - 1, Integer.parseInt(inp[2]) - 1, ropes);
             }
-            if(inp[0].equals("split")){
-                Rope.split(Integer.parseInt(inp[1]) - 1 , Integer.parseInt(inp[2]), ropes);
+            if (inp[0].equals("split")) {
+                Rope.split(Integer.parseInt(inp[1]) - 1, Integer.parseInt(inp[2]), ropes);
             }
             if (inp[0].equals("insert")) {
                 Rope.insert(Integer.parseInt(inp[1]) - 1, Integer.parseInt(inp[2]), Integer.parseInt(inp[3]) - 1, ropes);
+            }
+            if (inp[0].equals("delete")) {
+                Rope.delete(Integer.parseInt(inp[1]) - 1, Integer.parseInt(inp[2]) - 1, Integer.parseInt(inp[3]), ropes);
             }
         }
     }
