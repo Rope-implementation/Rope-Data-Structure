@@ -26,6 +26,9 @@ public class Program {
             if(inp[0].equals("split")){
                 Rope.split(Integer.parseInt(inp[1]) - 1 , Integer.parseInt(inp[2]), ropes);
             }
+            if (inp[0].equals("insert")) {
+                Rope.insert(Integer.parseInt(inp[1]) - 1, Integer.parseInt(inp[2]), Integer.parseInt(inp[3]) - 1, ropes);
+            }
         }
     }
 }

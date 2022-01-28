@@ -169,6 +169,60 @@ public class Rope {
         }
     }
 
+    /*
+    insert rope 2 value to rope 1, after index
+     */
+    public static void insert(int numRope1, int index, int numRope2, ArrayList<Rope> rr) {
+        s2 = "";
+        Node r1 = rr.get(numRope1).root;
+        Node r2 = rr.get(numRope2).root;
+
+        while (r1.left != null && r1.right != null) {
+            if (r1.weight > index) {
+                r1 = r1.left;
+            } else {                                        //if p.weight <= index
+                index -= r1.weight;
+                r1 = r1.right;
+            }
+        }
+
+        Node p = new Node(r1.str.substring(0, index + 1));
+        Node q = new Node(r1.str.substring(index + 1));
+        q.str = newTravers(r2) + q.str;
+        q.weight = q.str.length();
+        r1.str = null;
+        r1.left = p;
+        r1.right = q;
+        reWeight(rr.get(numRope1));
+
+    }
+
+    /*
+    re-weight each node when its necessary
+     */
+    private static int x;
+    private static void reWeight(Rope r) {
+        x=0;
+        reWeight(r.root);
+    }
+
+    private static void reWeight(Node p) {
+        if(p==null){
+            return ;
+        }
+        reWeight(p.left);
+        if(p.left!=null) {
+            p.weight = p.left.weight + x;
+            x=0;
+        }
+
+        reWeight(p.right);
+        if(p.right!=null)
+            x+= p.right.weight;
+
+//        return p.weight;
+    }
+
     public static String newTravers(Node root) {
         if (root != null) {
             s2 = newTravers(root.left);
