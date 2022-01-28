@@ -148,6 +148,7 @@ public class Rope {
                 }
             }
         }
+
         Node newLeft = new Node(q.str.substring(0, newIndex + 1));
         Node newRight = new Node(q.str.substring(newIndex + 1));
 //        q.str = null;
