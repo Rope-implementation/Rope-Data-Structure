@@ -1,3 +1,4 @@
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -125,7 +126,7 @@ public class Rope {
             } else {
                 newIndex -= q.weight;
 
-                if (newIndex < q.weight && index >= p.weight) {
+                if (newIndex < q.weight && index < p.weight) {
                     leftResult += newTravers(q.left);
                     s2 = "";
                 }
@@ -136,7 +137,7 @@ public class Rope {
                     s2 = "";
                     count++;
                 }
-                if (newIndex < q.weight && index < p.weight && q.left != null && q.right != null) {
+                if (newIndex < q.weight && index >= p.weight && q.left != null && q.right != null) {
                     if (count2 == 0) {
                         leftResult += newTravers(q.left);
                         s2 = "";
@@ -163,12 +164,22 @@ public class Rope {
         String result2;
 
         Program.ropes.remove(num);
-        if (leftResult != null) {
+
+        if (newLeft.weight == 0) {
+            result2 = leftResult;
+        } else {
             result2 = leftResult + newLeft.str;
+        }
+        if (!result2.equals("")) {
             Program.ropes.add(num, new Rope(result2));
         }
-        if (rightResult != null) {
+
+        if (newRight.weight == 0) {
+            result1 = rightResult;
+        } else {
             result1 = newRight.str + rightResult;
+        }
+        if (!result1.equals("")) {
             Program.ropes.add(num + 1, new Rope(result1));
         }
     }
@@ -177,27 +188,33 @@ public class Rope {
     insert rope 2 value to rope 1, after index
      */
     public static void insert(int numRope1, int index, int numRope2, ArrayList<Rope> rr) {
-        s2 = "";
-        Node r1 = rr.get(numRope1).root;
-        Node r2 = rr.get(numRope2).root;
+        Node p = rr.get(numRope1).root;
+        Node q = rr.get(numRope2).root;
+        split(numRope1, index, rr);
+        concat(numRope1, numRope2 + 1, rr);
+        concat(numRope1, numRope1 + 1, rr);
 
-        while (r1.left != null && r1.right != null) {
-            if (r1.weight > index) {
-                r1 = r1.left;
-            } else {                                        //if p.weight <= index
-                index -= r1.weight;
-                r1 = r1.right;
-            }
-        }
-
-        Node p = new Node(r1.str.substring(0, index + 1));
-        Node q = new Node(r1.str.substring(index + 1));
-        q.str = newTravers(r2) + q.str;
-        q.weight = q.str.length();
-        r1.str = null;
-        r1.left = p;
-        r1.right = q;
-        reWeight(rr.get(numRope1));
+//        s2 = "";
+//        Node r1 = rr.get(numRope1).root;
+//        Node r2 = rr.get(numRope2).root;
+//
+//        while (r1.left != null && r1.right != null) {
+//            if (r1.weight > index) {
+//                r1 = r1.left;
+//            } else {                                        //if p.weight <= index
+//                index -= r1.weight;
+//                r1 = r1.right;
+//            }
+//        }
+//
+//        Node p = new Node(r1.str.substring(0, index + 1));
+//        Node q = new Node(r1.str.substring(index + 1));
+//        q.str = newTravers(r2) + q.str;
+//        q.weight = q.str.length();
+//        r1.str = null;
+//        r1.left = p;
+//        r1.right = q;
+//        reWeight(rr.get(numRope1));
     }
 
     /*
@@ -211,7 +228,10 @@ public class Rope {
             split(num, beginning, rr);
             split(num + 1, end - beginning - 2, rr);
             rr.remove(num + 1);
-            concat(num, num + 1, rr);
+            if (rr.size() > 1) {
+                concat(num, num + 1, rr);
+            }
+
         }
     }
 
