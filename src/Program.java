@@ -39,7 +39,7 @@ public class Program {
                     Rope.delete(Integer.parseInt(inp[1]) - 1, Integer.parseInt(inp[2]) - 1, Integer.parseInt(inp[3]), ropes);
                     break;
                 case "autocomplete":
-                    trie = new Trie(new File("Rope-Data-Structure/src/testTrie.txt"));
+                    trie = new Trie(new File("src/testTrie.txt"));
                     autoComp(inp[1], trie);
                     break;
                 case "1":

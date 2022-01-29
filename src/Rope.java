@@ -79,14 +79,26 @@ public class Rope {
     concat rope1 and rope 2 and set the result in new Rope
      */
     public static void concat(int numberRope1, int numberRope2, ArrayList<Rope> rr) {
-        Rope r1 = rr.get(numberRope1);
-        Rope r2 = rr.get(numberRope2);
+        Rope r1 , r2;
+        boolean check=true;
+        if(numberRope2 < numberRope1) {
+            check=false;
+        }
+        r1 = rr.get(numberRope1);
+        r2 = rr.get(numberRope2);
         Rope r3 = new Rope();
         r3.root.left = r1.root;
         r3.root.right = r2.root;
         r3.root.weight = r1.root.weight;
-        rr.remove(r2);
-        rr.set(numberRope1, r3);
+        if(check){
+            rr.remove(r2);
+            rr.set(numberRope1, r3);
+        }
+        else{
+            rr.remove(r1);
+            rr.set(numberRope2, r3);
+        }
+
     }
 
     /*
@@ -156,10 +168,6 @@ public class Rope {
 
         Node newLeft = new Node(q.str.substring(0, newIndex + 1));
         Node newRight = new Node(q.str.substring(newIndex + 1));
-//        q.str = null;
-//        q.left = newLeft;
-//        q.right = newRight;
-//        q.weight = newLeft.weight;
         String result1;
         String result2;
 
@@ -193,28 +201,6 @@ public class Rope {
         split(numRope1, index, rr);
         concat(numRope1, numRope2 + 1, rr);
         concat(numRope1, numRope1 + 1, rr);
-
-//        s2 = "";
-//        Node r1 = rr.get(numRope1).root;
-//        Node r2 = rr.get(numRope2).root;
-//
-//        while (r1.left != null && r1.right != null) {
-//            if (r1.weight > index) {
-//                r1 = r1.left;
-//            } else {                                        //if p.weight <= index
-//                index -= r1.weight;
-//                r1 = r1.right;
-//            }
-//        }
-//
-//        Node p = new Node(r1.str.substring(0, index + 1));
-//        Node q = new Node(r1.str.substring(index + 1));
-//        q.str = newTravers(r2) + q.str;
-//        q.weight = q.str.length();
-//        r1.str = null;
-//        r1.left = p;
-//        r1.right = q;
-//        reWeight(rr.get(numRope1));
     }
 
     /*
@@ -233,33 +219,6 @@ public class Rope {
             }
 
         }
-    }
-
-    /*
-    re-weight each node when its necessary
-     */
-    private static int x;
-
-    private static void reWeight(Rope r) {
-        x = 0;
-        reWeight(r.root);
-    }
-
-    private static void reWeight(Node p) {
-        if (p == null) {
-            return;
-        }
-        reWeight(p.left);
-        if (p.left != null) {
-            p.weight = p.left.weight + x;
-            x = 0;
-        }
-
-        reWeight(p.right);
-        if (p.right != null)
-            x += p.right.weight;
-
-//        return p.weight;
     }
 
     public static String newTravers(Node root) {
