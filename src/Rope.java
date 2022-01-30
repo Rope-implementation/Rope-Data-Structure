@@ -1,4 +1,8 @@
-import java.lang.reflect.Modifier;
+/*
+Kourosh Hassanzadeh 9912762552
+Alireza Sajjadi 9912762596
+ */
+
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -79,25 +83,45 @@ public class Rope {
     concat rope1 and rope 2 and set the result in new Rope
      */
     public static void concat(int numberRope1, int numberRope2, ArrayList<Rope> rr) {
-        Rope r1 , r2;
-        boolean check=true;
-        if(numberRope2 < numberRope1) {
-            check=false;
+        Node p, q;
+        boolean check = true;
+        if (numberRope2 < numberRope1) {
+            check = false;
         }
-        r1 = rr.get(numberRope1);
-        r2 = rr.get(numberRope2);
-        Rope r3 = new Rope();
-        r3.root.left = r1.root;
-        r3.root.right = r2.root;
-        r3.root.weight = r1.root.weight;
-        if(check){
-            rr.remove(r2);
-            rr.set(numberRope1, r3);
+        p = rr.get(numberRope1).root;
+        q = rr.get(numberRope2).root;
+        String first, second, result;
+        first = newTravers(p);
+        s2 = "";
+        second = newTravers(q);
+        s2 = "";
+        result = first + second;
+        if (!check) {
+
+            rr.set(numberRope1, new Rope(result));
+            rr.remove(numberRope2);
+        } else {
+            rr.remove(numberRope1);
+            rr.set(numberRope1, new Rope(result));
         }
-        else{
-            rr.remove(r1);
-            rr.set(numberRope2, r3);
-        }
+
+
+//        Rope r1 , r2;
+//
+//        r1 = rr.get(numberRope1);
+//        r2 = rr.get(numberRope2);
+//        Rope r3 = new Rope();
+//        r3.root.left = r1.root;
+//        r3.root.right = r2.root;
+//        r3.root.weight = r1.root.weight;
+//        if(check){
+//            rr.remove(r2);
+//            rr.set(numberRope1, r3);
+//        }
+//        else{
+//            rr.remove(r1);
+//            rr.set(numberRope2, r3);
+//        }
 
     }
 
@@ -112,7 +136,7 @@ public class Rope {
         int count = 0, count1 = 0, count2 = 0;
         int newIndex = index;
         while (q.left != null && q.right != null) {
-            if (newIndex < q.weight) {
+            if (newIndex <= q.weight) {
 
                 if (index >= p.weight) {
                     rightResult = newTravers(q.right);
@@ -138,7 +162,7 @@ public class Rope {
             } else {
                 newIndex -= q.weight;
 
-                if (newIndex < q.weight && index < p.weight) {
+                if (newIndex <= q.weight && index < p.weight) {
                     leftResult += newTravers(q.left);
                     s2 = "";
                 }
@@ -201,6 +225,29 @@ public class Rope {
         split(numRope1, index, rr);
         concat(numRope1, numRope2 + 1, rr);
         concat(numRope1, numRope1 + 1, rr);
+
+
+//        s2 = "";
+//        Node r1 = rr.get(numRope1).root;
+//        Node r2 = rr.get(numRope2).root;
+//
+//        while (r1.left != null && r1.right != null) {
+//            if (r1.weight > index) {
+//                r1 = r1.left;
+//            } else {                                        //if p.weight <= index
+//                index -= r1.weight;
+//                r1 = r1.right;
+//            }
+//        }
+//
+//        Node p = new Node(r1.str.substring(0, index + 1));
+//        Node q = new Node(r1.str.substring(index + 1));
+//        q.str = newTravers(r2) + q.str;
+//        q.weight = q.str.length();
+//        r1.str = null;
+//        r1.left = p;
+//        r1.right = q;
+//        reWeight(rr.get(numRope1))
     }
 
     /*
@@ -272,3 +319,30 @@ public class Rope {
     }
 
 }
+
+//
+//    /*
+//        re-weight each node when its necessary
+//         */
+//    private static int x;
+//    private static void reWeight(Rope r) {
+//        x=0;
+//        reWeight(r.root);
+//    }
+//
+//    private static void reWeight(Node p) {
+//        if(p==null){
+//            return ;
+//        }
+//        reWeight(p.left);
+//        if(p.left!=null) {
+//            p.weight = p.left.weight + x;
+//            x=0;
+//        }
+//
+//        reWeight(p.right);
+//        if(p.right!=null)
+//            x+= p.right.weight;
+//
+////        return p.weight;
+//    }

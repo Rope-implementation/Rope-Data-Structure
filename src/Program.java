@@ -1,3 +1,8 @@
+/*
+Kourosh Hassanzadeh 9912762552
+Alireza Sajjadi 9912762596
+ */
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +11,10 @@ import java.util.Scanner;
 public class Program {
     static ArrayList<Rope> ropes = new ArrayList<>();
     static List<String> result = new ArrayList<>();
+
     public static void main(String[] args) {
-        Rope r=null;
+
+        Rope r = null;
         Trie trie;
 
         while (true) {
@@ -43,13 +50,13 @@ public class Program {
                     autoComp(inp[1], trie);
                     break;
                 case "1":
-                    newCommand(r,result.get(0));
+                    newCommand(r, result.get(0));
                     break;
                 case "2":
-                    newCommand(r,result.get(1));
+                    newCommand(r, result.get(1));
                     break;
                 case "3":
-                    newCommand(r,result.get(2));
+                    newCommand(r, result.get(2));
                     break;
                 default:
                     System.err.println("There is not any command named like this");
@@ -58,10 +65,13 @@ public class Program {
         }
     }
 
-    private static void newCommand(Rope r,String str){
+    private static void newCommand(Rope r, String str) {
+
         r = new Rope(str);
         ropes.add(r);
+
     }
+
     private static void autoComp(String pre, Trie trie) {
         result = trie.autoComplete(pre);
         for (int i = 0; i < result.size(); i++) {

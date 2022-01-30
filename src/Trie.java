@@ -1,3 +1,8 @@
+/*
+Kourosh Hassanzadeh 9912762552
+Alireza Sajjadi 9912762596
+ */
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -34,24 +39,23 @@ public class Trie {
             cur = cur.children.get(c);
         }  // this loop runs till we get to the last of prefix so cur = TrieNode with value : last char of prefix
 
-
-
-        finder(cur, prefix, response,3);
+        finder(cur, prefix, response, 3);
 
         return response;
     }
 
-    private void finder(TrieNode trieNode, String s, List<String> response,int limit) {
-        if(limit==0)
+    private void finder(TrieNode trieNode, String s, List<String> response, int limit) {
+
+        String res = "";
+        if (limit == 0)
             return;
         if (trieNode.isWord) {
             response.add(s);
             limit--;
         }
         for (TrieNode child : trieNode.children.values()) {
-            finder(child, s + child.value, response,limit);
+            finder(child, s + child.data, response, limit);
         }
-
     }
 
     private void fileReader(File file) {
@@ -65,7 +69,6 @@ public class Trie {
                 }
                 insert(line);
 
-
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,7 +79,7 @@ public class Trie {
 
 class TrieNode {
     HashMap<Character, TrieNode> children;
-    char value;
+    char data;
     boolean isWord;
 
     public TrieNode() {
@@ -84,8 +87,8 @@ class TrieNode {
         isWord = false;
     }
 
-    public TrieNode(char value) {
+    public TrieNode(char data) {
         this();
-        this.value = value;
+        this.data = data;
     }
 }
