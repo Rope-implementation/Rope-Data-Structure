@@ -46,7 +46,7 @@ public class Program {
                     Rope.delete(Integer.parseInt(inp[1]) - 1, Integer.parseInt(inp[2]) - 1, Integer.parseInt(inp[3]), ropes);
                     break;
                 case "autocomplete":
-                    trie = new Trie(new File("src/testTrie.txt"));
+                    trie = new Trie(new File("src/words.txt"));
                     autoComp(inp[1], trie);
                     break;
                 case "1":
@@ -74,7 +74,7 @@ public class Program {
 
     private static void autoComp(String pre, Trie trie) {
         result = trie.autoComplete(pre);
-        for (int i = 0; i < result.size(); i++) {
+        for (int i = 0; i < 3 ; i++) {
             System.out.println(i + 1 + ". " + result.get(i));
         }
     }
